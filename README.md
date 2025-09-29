@@ -1,8 +1,8 @@
-# Healthcare Contract Clause Extraction & Classification  
+# Intelligent Language Classification for Healthcare Contracts
 
 GitHub Repository: https://github.com/DesolatedHope/IB-Task-2025/tree/main
 
-## 🏆 Competition Submission  
+## 🏆 Competition Submission  - HiLabs AiQuest 2025
 
 This project was developed as part of a challenge to build a system that can automatically process healthcare contracts and classify clauses into **Standard** or **Non-Standard** categories.  
 
