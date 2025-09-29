@@ -7,6 +7,8 @@ This project was developed as part of a challenge to build a system that can aut
 The main goal was to **extract, align, and compare** clauses from masked healthcare contracts against a state-specific standard template. The difficulty comes from noisy contract data (scanned PDFs, OCR errors, non-uniform headings) and the fact that clauses may vary in wording while preserving or changing intent.  
 
 Our solution combines **advanced text extraction**, **semantic understanding**, and **hybrid retrieval strategies** to achieve robust and accurate results.  
+
+
 <img width="1024" height="720" alt="image" src="https://github.com/user-attachments/assets/c6d31d25-83d0-42c2-8126-2c28fc7ef555" />
 
 ---
