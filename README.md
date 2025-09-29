@@ -92,3 +92,5 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+ollama pull llama3.2:1b ## Model download
+```
