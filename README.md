@@ -94,3 +94,9 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ollama pull llama3.2:1b ## Model download
 ```
+
+Ensure that all the Standard Template PDFs and all Contract PDFs and the Attribute Dictionary is present in the same directory before running the code
+
+```bash
+python main.py
+```
