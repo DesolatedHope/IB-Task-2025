@@ -31,10 +31,11 @@ def extract_best_attributes(input_file: str,
                             output_file: str,
                             target_attributes: List[str] = None) -> pd.DataFrame:
     """
-    Reads a CSV of clause analysis, finds all matches for each target attribute
-    with confidence in ['medium', 'high'] AND Candidate_Score > 0.70,
-    removes duplicates, and saves results into a new CSV.
-    
+    Reads a CSV of clause analysis, finds only Best_Attribute matches
+    for each target attribute with confidence in ['medium', 'high']
+    AND Similarity_Score > 0.70, removes duplicates,
+    and saves results into a new CSV.
+
     Parameters
     ----------
     input_file : str
@@ -43,12 +44,12 @@ def extract_best_attributes(input_file: str,
         Path to save the output CSV
     target_attributes : List[str], optional
         List of attributes to extract. Defaults to the 5 required ones.
-    
+
     Returns
     -------
     pd.DataFrame
         DataFrame containing all medium/high confidence rows with score > 0.70
-        for each target attribute (distinct rows only)
+        for each target attribute (Best_Attribute only, distinct rows)
     """
     if target_attributes is None:
         target_attributes = [
@@ -62,43 +63,23 @@ def extract_best_attributes(input_file: str,
     # Load CSV
     df = pd.read_csv(input_file)
 
-    # Expand candidates into long format
-    long_records = []
-    for _, row in df.iterrows():
-        candidates = [
-            (row["Best_Attribute"], row["Similarity_Score"], "Best"),
-            (row["Alt_Attribute_1"], row["Alt_Score_1"], "Alt1"),
-            (row["Alt_Attribute_2"], row["Alt_Score_2"], "Alt2"),
-            (row["Alt_Attribute_3"], row["Alt_Score_3"], "Alt3"),
-        ]
-        for attr, score, source in candidates:
-            if pd.notna(attr) and attr in target_attributes:
-                rec = {
-                    "Clause_ID": row["Clause_ID"],
-                    "Clause_Text": row["Clause_Text"],
-                    "Confidence_Level": row["Confidence_Level"],
-                    "Candidate_Attribute": attr,
-                    "Candidate_Score": score,
-                    "Candidate_Source": source
-                }
-                long_records.append(rec)
+    # Keep only rows where Best_Attribute is in target list
+    best_df = df[df["Best_Attribute"].isin(target_attributes)].copy()
 
-    long_df = pd.DataFrame(long_records)
-
-    if long_df.empty:
-        print("⚠️ No matching attributes found.")
+    if best_df.empty:
+        print("⚠️ No matching best attributes found.")
         return pd.DataFrame()
 
-    # Keep only medium/high confidence AND score > 0.70
+    # Apply filters: medium/high confidence and score > 0.70
     valid_confidences = ["medium", "high"]
-    filtered_df = long_df[
-        long_df["Confidence_Level"].str.lower().isin(valid_confidences)
-        & (long_df["Candidate_Score"] > 0.70)
+    filtered_df = best_df[
+        best_df["Confidence_Level"].str.lower().isin(valid_confidences)
+        & (best_df["Similarity_Score"] > 0.70)
     ]
 
-    # Remove duplicates (keeping unique Clause_ID + Candidate_Attribute + Candidate_Score)
+    # Remove duplicates (keep unique Clause_ID + Best_Attribute + Similarity_Score)
     distinct_df = filtered_df.drop_duplicates(
-        subset=["Clause_ID", "Candidate_Attribute", "Candidate_Score"]
+        subset=["Clause_ID", "Best_Attribute", "Similarity_Score"]
     )
 
     # Save results
