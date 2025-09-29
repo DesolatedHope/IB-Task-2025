@@ -46,7 +46,7 @@ print("✅ Best attributes extracted and saved!")
 print("=== STAGE B: RUN NEW CLASSIFIER (FUZZY + SEMANTIC + OLLAMA) ===")
 scs = StandardContractSearcher(
     embed_model="sentence-transformers/all-MiniLM-L6-v2",
-    ollama_model="gemma3:1b"   # change if you want to use a different Ollama model
+    ollama_model="llama3.2:1b"   # change if you want to use a different Ollama model
 )
 
 # build standard index from the standard pdf (TN_STANDARD_TEMPLATE is from variables.py)

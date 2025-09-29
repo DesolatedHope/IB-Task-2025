@@ -38,7 +38,7 @@ class StandardContractSearcher:
     def __init__(
         self,
         embed_model: str = "sentence-transformers/all-MiniLM-L6-v2",
-        ollama_model: str = "llama3.1",
+        ollama_model: str = "llama3.2:1b",
     ):
         """
         embed_model: SentenceTransformer model for semantic search
@@ -149,7 +149,7 @@ class StandardContractSearcher:
     def compare_with_ollama(self, contract_text: str, standard_text: str) -> ComparisonResult:
         prompt = (
             "You are a legal contract comparator. Compare the contract clause and the standard clause.\n"
-            """1. Exact Structural Match (Standard)
+            """1. Exact Structural Match (STANDARD)
 • Contract text matches the standard template in structure, phrasing, and intent.
 • Placeholders (e.g., XX%, [Fee Schedule]) are replaced with actual values.
 • Example:
@@ -160,23 +160,25 @@ same formula/intent.
 • Example:
 o Standard: “[(XX%)] of the Fee Schedule”
 o Extracted: “95% of the Fee Schedule” ✅ Classify as Standard
-3. Minor Wording Differences (Standard)
+3. Minor Wording Differences (STANDARD)
 • Stylistic or language changes without altering meaning.
 • Example:
-o Standard: "in effect on the date of service"
+o STANDARD: "in effect on the date of service"
 o Extracted: "as in force at the time services are rendered" ✅ Classify as
-Standard
-4. Structural or Conditional Changes (Non-Standard)
+STANDARD
+4. Structural or Conditional Changes (NON-STANDARD)
 • Additional conditions, carve-outs, or exceptions not in the standard.
 • Reimbursement tied to something other than the specified Fee Schedule.
 • Example:
 o "Shall be 100% of the Fee Schedule except for cardiology services, which
-will be 80%." ❌ Classify as Non-Standard
-5. Reference to Different Methodologies (Non-Standard)
-• ❌ Classify as Non-Standard
+will be 80%." ❌ Classify as NON-STANDARD
+o The addition of the 90-day period for secondary payor is a key difference. ❌ Classify as NON-STANDARD
+5. Reference to Different Methodologies (NON-STANDARD)
+• ❌ Classify as NON-STANDARD
+ 
 """
             "Output must strictly follow the JSON schema with keys: label, confidence, reasoning, differences.\n\n"
-            "Write label as STANDARD/NON-STANDARD only.\n"
+            "Write label as STANDARD and NON-STANDARD only.\n"
             "Contract clause:\n---\n"
             f"{contract_text}\n---\n"
             "Standard clause:\n---\n"
@@ -196,7 +198,7 @@ will be 80%." ❌ Classify as Non-Standard
             return comp
         except (ValidationError, Exception) as e:
             sem_score = self._semantic_search(contract_text, top_k=1)[0][1]
-            label = "MATCH" if sem_score > 0.82 else ("NON-STANDARD")
+            label = "STANDARD" if sem_score > 0.82 else ("NON-STANDARD")
             return ComparisonResult(
                 label=label,
                 confidence=sem_score,
