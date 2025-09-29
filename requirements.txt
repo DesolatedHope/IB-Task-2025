@@ -1,0 +1,31 @@
+# Core Python utilities
+pandas
+numpy
+openpyxl
+tqdm
+rapidfuzz
+ollama
+
+# PDF + OCR
+pymupdf
+easyocr
+Pillow
+opencv-python-headless  # headless version for servers (use opencv-python if GUI needed)
+
+# NLP + Transformers
+torch
+transformers
+sentence-transformers
+
+# ML + Similarity
+scikit-learn
+faiss-cpu
+umap-learn
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Logging & Utilities
+rich

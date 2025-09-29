@@ -1,0 +1,65 @@
+{
+  "analysis_timestamp": "2025-09-29T22:03:53.679663",
+  "total_clauses_processed": 422,
+  "stage_results": {
+    "stage1": {
+      "attributes_loaded": 5,
+      "embedding_dimension": 384,
+      "total_keywords_extracted": 100
+    },
+    "stage3": {
+      "total_classified": 422,
+      "confidence_distribution": {
+        "high": 2,
+        "medium": 1,
+        "low": 18,
+        "very_low": 401
+      },
+      "avg_similarity": 0.3761608678300234,
+      "high_confidence_rate": 0.004739336492890996
+    }
+  },
+  "attribute_summary": {
+    "Medicaid Timely Filing": {
+      "total_clauses": 82,
+      "high_confidence_clauses": 1,
+      "avg_similarity": 0.4083030087555327,
+      "sample_clauses": [
+        "Submission and Adjudication of Medicaid Claims. Unless otherwise instructed, or required by Regulato..."
+      ]
+    },
+    "Medicare Timely Filing": {
+      "total_clauses": 43,
+      "high_confidence_clauses": 0,
+      "avg_similarity": 0.36453689738761547,
+      "sample_clauses": []
+    },
+    "No Steerage/SOC": {
+      "total_clauses": 204,
+      "high_confidence_clauses": 1,
+      "avg_similarity": 0.3766952126341708,
+      "sample_clauses": [
+        "Networks and Provider Panels. Provider shall be eligible to participate only in those Networks desig..."
+      ]
+    },
+    "Medicaid Fee Schedule": {
+      "total_clauses": 54,
+      "high_confidence_clauses": 0,
+      "avg_similarity": 0.34153279772511236,
+      "sample_clauses": []
+    },
+    "Medicare Fee Schedule": {
+      "total_clauses": 39,
+      "high_confidence_clauses": 0,
+      "avg_similarity": 0.36654765292620045,
+      "sample_clauses": []
+    }
+  },
+  "recommendations": [
+    "Refine 'No Steerage/SOC' attribute - 203 clauses need better matching",
+    "Refine 'Medicare Fee Schedule' attribute - 39 clauses need better matching",
+    "Refine 'Medicaid Timely Filing' attribute - 81 clauses need better matching",
+    "Refine 'Medicare Timely Filing' attribute - 42 clauses need better matching",
+    "Refine 'Medicaid Fee Schedule' attribute - 54 clauses need better matching"
+  ]
+}
