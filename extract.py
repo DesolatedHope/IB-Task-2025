@@ -45,9 +45,6 @@ def flat_entries_to_df(entries: list) -> pd.DataFrame:
 
     return df[cols]
 
-
-
-
 class TextExtractor:
     def __init__(self, languages=['en']):
         self.reader = easyocr.Reader(languages, gpu=True)
