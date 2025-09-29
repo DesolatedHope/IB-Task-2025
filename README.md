@@ -1,6 +1,7 @@
 # Intelligent Language Classification for Healthcare Contracts
 
 GitHub Repository: https://github.com/DesolatedHope/IB-Task-2025/tree/main
+
 Video Explanation of Working: https://drive.google.com/file/d/17kUfmZPeOrlPBsi1b2eGVA-SdS3s15tE/view?usp=sharing
 
 ## 🏆 Competition Submission  - HiLabs AiQuest 2025
